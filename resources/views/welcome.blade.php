@@ -9,7 +9,7 @@
     </head>
     <body>
         <div>
-
+            <h1>Credit Payment</h1>
         </div>
     </body>
 </html>
