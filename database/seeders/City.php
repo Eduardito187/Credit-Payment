@@ -6,16 +6,17 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\City as ModelCity;
 use Illuminate\Support\Facades\DB;
-use App\Classes\Helper\Text;
+use App\Helpers\Text\Translate;
 
 class City extends Seeder
 {
-    protected $text;
+    protected $translate;
 
-    public function __construct() {
-        $this->text = new Text();
+    public function __construct()
+    {
+        $this->translate = new Translate();
     }
-    
+
     /**
      * Run the database seeds.
      *
@@ -24,41 +25,49 @@ class City extends Seeder
     public function run()
     {
         if (ModelCity::count() == 0) {
-            DB::table($this->text->getCity())->insert([
-                $this->text->getId() => 1,
-                $this->text->getName() => 'Pando'
+            DB::table($this->translate->getCity())->insert([
+                $this->translate->getId() => 1,
+                $this->translate->getName() => 'Pando'
             ]);
-            DB::table($this->text->getCity())->insert([
-                $this->text->getId() => 2,
-                $this->text->getName() => 'Beni'
+
+            DB::table($this->translate->getCity())->insert([
+                $this->translate->getId() => 2,
+                $this->translate->getName() => 'Beni'
             ]);
-            DB::table($this->text->getCity())->insert([
-                $this->text->getId() => 3,
-                $this->text->getName() => 'Santa Cruz'
+
+            DB::table($this->translate->getCity())->insert([
+                $this->translate->getId() => 3,
+                $this->translate->getName() => 'Santa Cruz'
             ]);
-            DB::table($this->text->getCity())->insert([
-                $this->text->getId() => 4,
-                $this->text->getName() => 'La Paz'
+
+            DB::table($this->translate->getCity())->insert([
+                $this->translate->getId() => 4,
+                $this->translate->getName() => 'La Paz'
             ]);
-            DB::table($this->text->getCity())->insert([
-                $this->text->getId() => 5,
-                $this->text->getName() => 'Cochabamba'
+
+            DB::table($this->translate->getCity())->insert([
+                $this->translate->getId() => 5,
+                $this->translate->getName() => 'Cochabamba'
             ]);
-            DB::table($this->text->getCity())->insert([
-                $this->text->getId() => 6,
-                $this->text->getName() => 'Oruro'
+
+            DB::table($this->translate->getCity())->insert([
+                $this->translate->getId() => 6,
+                $this->translate->getName() => 'Oruro'
             ]);
-            DB::table($this->text->getCity())->insert([
-                $this->text->getId() => 7,
-                $this->text->getName() => 'Potosi'
+
+            DB::table($this->translate->getCity())->insert([
+                $this->translate->getId() => 7,
+                $this->translate->getName() => 'Potosi'
             ]);
-            DB::table($this->text->getCity())->insert([
-                $this->text->getId() => 8,
-                $this->text->getName() => 'Chuquisaca'
+
+            DB::table($this->translate->getCity())->insert([
+                $this->translate->getId() => 8,
+                $this->translate->getName() => 'Chuquisaca'
             ]);
-            DB::table($this->text->getCity())->insert([
-                $this->text->getId() => 9,
-                $this->text->getName() => 'Tarija'
+
+            DB::table($this->translate->getCity())->insert([
+                $this->translate->getId() => 9,
+                $this->translate->getName() => 'Tarija'
             ]);
         }
     }

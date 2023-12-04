@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('restrict_ip', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('ip', 20);
+            $table->boolean('status');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();
         });

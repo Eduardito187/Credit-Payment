@@ -6,14 +6,17 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Municipality as ModelMunicipality;
 use Illuminate\Support\Facades\DB;
-use App\Classes\Helper\Text;
+use App\Helpers\Text\Translate;
 
 class Municipality extends Seeder
 {
-    protected $text;
+    /**
+     * @var Translate
+     */
+    protected $translate;
 
     public function __construct() {
-        $this->text = new Text();
+        $this->translate = new Translate();
     }
     
     /**
@@ -24,10 +27,10 @@ class Municipality extends Seeder
     public function run()
     {
         if (ModelMunicipality::count() == 0) {
-            DB::table($this->text->getMunicipality())->insert([
-                $this->text->getId() => 1,
-                $this->text->getName() => 'Santa Cruz de la Sierra',
-                $this->text->getIdCity() => 3
+            DB::table($this->translate->getMunicipality())->insert([
+                $this->translate->getId() => 1,
+                $this->translate->getName() => 'Santa Cruz de la Sierra',
+                $this->translate->getIdCity() => 3
             ]);
         }
     }

@@ -6,14 +6,14 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Country as ModelCountry;
 use Illuminate\Support\Facades\DB;
-use App\Classes\Helper\Text;
+use App\Helpers\Text\Translate;
 
 class Country extends Seeder
 {
-    protected $text;
+    protected $translate;
 
     public function __construct() {
-        $this->text = new Text();
+        $this->translate = new Translate();
     }
     
     /**
@@ -24,9 +24,9 @@ class Country extends Seeder
     public function run()
     {
         if (ModelCountry::count() == 0) {
-            DB::table($this->text->getCountry())->insert([
-                $this->text->getId() => 1,
-                $this->text->getName() => 'Bolivia'
+            DB::table($this->translate->getCountry())->insert([
+                $this->translate->getId() => 1,
+                $this->translate->getName() => 'Bolivia'
             ]);
         }
     }
