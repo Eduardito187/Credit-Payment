@@ -11,8 +11,6 @@
                 <h1>¡Error 404!</h1>
                 <p>La página que estás buscando no pudo ser encontrada.</p>
             </div>
-            <div class="animated-bg">
-            </div>
         </div>
     </body>
 </html>
@@ -45,14 +43,5 @@
     .error-message p {
         font-size: 1.5rem;
         margin: 0;
-    }
-
-    .animated-bg {
-        width: 200px;
-        height: 200px;
-        background-color: #ec1c24;
-        background-image: url('https://dismacapi.grazcompany.com/storage/dismac_red.png');
-        background-size: cover;
-        background-position: center;
     }
 </style>
