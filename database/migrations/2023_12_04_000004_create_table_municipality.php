@@ -31,5 +31,6 @@ return new class extends Migration
         Schema::dropIfExists('municipality', function (Blueprint $table) {
             $table->dropConstrainedForeignId('id_city');
         });
+        Schema::dropIfExists('municipality');
     }
 };

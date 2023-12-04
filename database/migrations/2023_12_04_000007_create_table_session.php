@@ -35,5 +35,6 @@ return new class extends Migration
             $table->dropConstrainedForeignId('id_ip');
             $table->dropConstrainedForeignId('id_localization');
         });
+        Schema::dropIfExists('session');
     }
 };

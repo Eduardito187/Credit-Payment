@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('account', function (Blueprint $table) {
+        Schema::create('account_login', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email');
-            $table->string('telefono');
-            $table->string('token')->nullable();
+            $table->string('username');
+            $table->longText('password');
             $table->boolean('status');
+            $table->unsignedBigInteger('id_account')->nullable();
             $table->timestamp('created_at');
             $table->timestamp('updated_at')->nullable();
+            $table->foreign('id_account')->references('id')->on('account')->onDelete('cascade');
         });
     }
 
@@ -32,6 +32,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account');
+        Schema::dropIfExists('account_login', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('id_account');
+        });
+        Schema::dropIfExists('account_login');
     }
 };

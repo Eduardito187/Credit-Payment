@@ -44,5 +44,6 @@ return new class extends Migration
             $table->dropConstrainedForeignId('id_address_extra');
             $table->dropConstrainedForeignId('id_localization');
         });
+        Schema::dropIfExists('address');
     }
 };
