@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\AccountPartner;
 use App\Models\AccountLogin;
-use App\Models\AccountStatus;
-use App\Models\RolAccount;
 
 class Account extends Model
 {

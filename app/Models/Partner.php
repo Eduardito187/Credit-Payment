@@ -4,12 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Picture;
-use App\Models\Address;
+use App\Models\Account;
 use App\Models\AccountPartner;
-use App\Models\StorePartner;
-use App\Models\Campaign;
-use App\Models\SocialPartner;
 
 class Partner extends Model
 {
@@ -26,8 +22,13 @@ class Partner extends Model
     protected $keyType = 'integer';
     public $timestamps = false;
 
-    public function AccountPartner()
+    public function accountsPartners()
     {
-        return $this->hasOne(AccountPartner::class, 'id_partner', 'id');
+        return $this->hasMany(AccountPartner::class, 'id_partner', 'id');
+    }
+
+    public function accountMaster()
+    {
+        return $this->hasOne(Account::class, 'id', 'id_account');
     }
 }

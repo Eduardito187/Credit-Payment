@@ -89,8 +89,21 @@ class Translate
     const NEGATIVE_ID = "-1";
     const DISTINCT_SYMBOL = "!=";
     const PERCENT = "%";
-    CONST COLUMN_NAME= "name";
-    CONST COLUMN_ID_CITY= "id_city";
+    const COLUMN_NAME = "name";
+    const COLUMN_ID_CITY = "id_city";
+    const MESSAGES_LOGN       = [
+        "Bienvenido.",
+        "Contraseña erronea.",
+        "La cuenta se encuentra desactivada.",
+        "El usuario no se encuentra registrado.",
+        "El partner ingresado no existe.",
+        "Formato invalido de usuario.",
+        "La cuenta no existe."
+    ];
+    const TEXT = "text";
+    const STATUS = "status";
+    const ID_ACCOUNT = "id_account";
+    const ARROBA = "@";
 
     public function __construct()
     {
@@ -741,5 +754,50 @@ class Translate
     public function getName()
     {
         return self::COLUMN_NAME;
+    }
+
+    /**
+     * @param bool $status
+     * @param int $position
+     * @param string|null $token
+     * @return array
+     */
+    public function messageLogin(bool $status, int $position, string|null $token = null)
+    {
+        return array(
+            $this->getStatus() => $status,
+            $this->getText() => self::MESSAGES_LOGN[$position],
+            $this->getToken() => $token
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getText()
+    {
+        return self::TEXT;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return self::STATUS;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdAccount(){
+        return self::ID_ACCOUNT;
+    }
+
+    /**
+     * @return string
+     */
+    public function getArroba(){
+        return self::ARROBA;
     }
 }
