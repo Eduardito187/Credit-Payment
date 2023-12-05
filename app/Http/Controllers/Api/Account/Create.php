@@ -52,6 +52,7 @@ class Create extends Controller
         } catch (Exception $th) {
             $state = null;
         }
+        echo 'verify email => '.($email ? 'Si':'No');
         $response = array("status" => $state);
         return response()->json($response);
     }
