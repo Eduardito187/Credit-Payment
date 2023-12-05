@@ -1,7 +1,7 @@
 <?php
     ini_set( 'display_errors', 1 );
     error_reporting( E_ALL );
-    $from = "test@hostinger-tutorials.com";
+    $from = "eduardchavez302@gmail.com";
     $to = "chaveduard.bo@gmail.com";
     $subject = "Checking PHP mail";
     $message = "PHP mail works just fine";
