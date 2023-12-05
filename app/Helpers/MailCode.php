@@ -30,8 +30,8 @@ class MailCode
         $this->headers = [
             'MIME-Version' => 'MIME-Version: 1.0',
             'Content-type' => 'text/html; charset=UTF-8',
-            'From' => "PlatformDismac <platformdismac@grazcompany.com>",
-            'Reply-To' => "platformdismac@grazcompany.com",
+            'From' => "NotifyAPP <notify@grazcompany.com>",
+            'Reply-To' => "notify@grazcompany.com",
             'X-Mailer' => 'PHP/' . phpversion()
         ];
     }
