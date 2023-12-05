@@ -38,6 +38,7 @@ class MailCode
     }
 
     public function createMail() {
+        /*
         try {
             ini_set($this->translate->getDisplayError(), 1 );
             error_reporting( E_ALL );
@@ -46,6 +47,7 @@ class MailCode
         } catch (Exception $e) {
             return false;
         }
+        */
 
         try {
             $mail = new PHPMailer();
