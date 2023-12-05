@@ -38,6 +38,7 @@ class Create extends Controller
                 }
                 Log::info('verify email => '.($email ? 'Si':'No'));
                 if ($email) {
+                    Log::info("Send mail if exist #email");
                     $newEmail = new MailCode($request->all()["email"], "Código de verificación", $request->all()["code"]);
                     $state = $newEmail->createMail();
                 }else{
