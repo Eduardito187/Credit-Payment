@@ -37,46 +37,15 @@ class MailCode
         ];
     }
 
-    public function createMail() {
-        /*
+    public function createMail()
+    {
         try {
-            ini_set($this->translate->getDisplayError(), 1 );
-            error_reporting( E_ALL );
+            ini_set($this->translate->getDisplayError(), 0);
+            error_reporting(E_ALL);
 
             return mail($this->to, $this->title, (string)$this->message, $this->headers);
         } catch (Exception $e) {
             return false;
         }
-        */
-
-        try {
-            $mail = new PHPMailer();
-            $mail->isSMTP();
-            $mail->SMTPDebug = 2;
-            $mail->Host = 'smtp.hostinger.com';
-            $mail->Port = 465;
-            $mail->SMTPAuth = true;
-            $mail->Username = 'notify@grazcompany.com';
-            $mail->Password = 'Abel$123456';
-            $mail->setFrom('notify@grazcompany.com', 'Notify APP');
-            $mail->addReplyTo('notify@grazcompany.com', 'Notify APP');
-            $mail->addAddress($this->to, 'UserName');
-            $mail->Subject = 'Checking if PHPMailer works';
-            $mail->msgHTML((string)$this->message);
-            $mail->Body = 'This is just a plain text message body';
-            //$mail->addAttachment('attachment.txt');
-            if (!$mail->send()) {
-                Log::info('Mailer Error: ' . $mail->ErrorInfo);
-                return false;
-            } else {
-                Log::info('The email message was sent.');
-                return true;
-            }
-        } catch (Exception $e) {
-            Log::info($e->getMessage());
-            return false;
-        }
     }
 }
-
-?>
