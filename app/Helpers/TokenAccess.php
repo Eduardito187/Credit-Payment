@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Models\Account as ModelAccount;
 use App\Models\Partner as ModelPartner;
+use App\Models\IntegrationsAPI as ModelIntegrations;
 use Illuminate\Support\Facades\Log;
 use App\Helpers\Text\Translate;
 
@@ -33,6 +34,16 @@ class TokenAccess
      */
     public function validateAPI()
     {
+        $validateIntegrations = ModelIntegrations::select($this->translate->getId())->where($this->translate->getToken(), $this->getToken())->get()->toArray();
+        if (count($validateIntegrations) == 0) {
+            return $this->getTokenIntegrations();
+        } else {
+            return true;
+        }
+    }
+
+    public function getTokenIntegrations()
+    {
         $validatePartner = ModelPartner::select($this->translate->getId())->where($this->translate->getToken(), $this->getToken())->get()->toArray();
         if (count($validatePartner) == 0) {
             return $this->getTokenAccount();
@@ -41,6 +52,9 @@ class TokenAccess
         }
     }
 
+    /**
+     * @return bool
+     */
     public function getToken()
     {
         $token = explode($this->translate->getSpace(), $this->token);

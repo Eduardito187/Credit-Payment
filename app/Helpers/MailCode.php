@@ -5,12 +5,12 @@ namespace App\Helpers;
 use App\Helpers\Text\Translate;
 use Exception;
 
-class MailCode{
-
-    protected $to       = "";
-    protected $title    = "";
-    protected $message  = "";
-    protected $headers  = [];
+class MailCode
+{
+    protected $to = "";
+    protected $title = "";
+    protected $message = "";
+    protected $headers = [];
     /**
      * @var Translate
      */
