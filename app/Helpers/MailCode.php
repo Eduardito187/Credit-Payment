@@ -41,14 +41,8 @@ class MailCode
             ini_set($this->translate->getDisplayError(), 1 );
             error_reporting( E_ALL );
 
-            Log::info(json_encode($this->to));
-            Log::info(json_encode($this->title));
-            Log::info(json_encode((string)$this->message));
-            Log::info(json_encode($this->headers));
-            Log::info("Send mail.");
             return mail($this->to, $this->title, (string)$this->message, $this->headers);
         } catch (Exception $e) {
-            Log::info($e->getMessage());
             return false;
         }
     }
