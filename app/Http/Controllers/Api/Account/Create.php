@@ -28,20 +28,21 @@ class Create extends Controller
     public function verifyMail(Request $request)
     {
         $state = null;
+
         try {
             if (!is_null($request->all()["email"]) && !is_null($request->all()["code"]) && !is_null($request->all()["type"])) {
+
                 $email = null;
+
                 if ($request->all()["type"] == "partner") {
                     $email = $this->accountInterface->verifyEmailPartner($request->all()["email"]);
                 }else if ($request->all()["type"] == "account") {
                     $email = $this->accountInterface->verifyEmailAccount($request->all()["email"]);
                 }
-                Log::info('verify email => '.($email ? 'Si':'No'));
+
                 if ($email) {
-                    Log::info("Send mail if exist #email");
                     $newEmail = new MailCode($request->all()["email"], "Código de verificación", $request->all()["code"]);
                     $state = $newEmail->createMail();
-                    Log::info($state ? "Si state" : "No state");
                 }else{
                     if (!$request->all()["restore"]) {
                         $state = false;
@@ -52,12 +53,12 @@ class Create extends Controller
                 }
             }else{
                 $state = false;
-                Log::info("No existen los parametros.");
+                
             }
         } catch (Exception $th) {
-            Log::info($th->getMessage());
             $state = null;
         }
+
         $response = array("status" => $state);
         return response()->json($response);
     }
