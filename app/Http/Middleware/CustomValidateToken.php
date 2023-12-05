@@ -43,6 +43,7 @@ class CustomValidateToken
      */
     public function handle(Request $request, Closure $next)
     {
+        return $next($request);
         $this->Ip = new Ip($request->ip());
         $this->Ip->validIp();
         if ($this->Ip->validRestrict() && $request->header($this->translate->getAuthorization()) != null) {
