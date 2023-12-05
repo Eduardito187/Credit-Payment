@@ -27,6 +27,7 @@ class Create extends Controller
     public function verifyMail(Request $request)
     {
         $state = null;
+        $status = null;
         try {
             if (!is_null($request->all()["email"]) && !is_null($request->all()["code"]) && !is_null($request->all()["type"])) {
                 $email = null;
@@ -46,13 +47,13 @@ class Create extends Controller
                         $state = $newEmail->createMail();
                     }
                 }
+                $status = 'verify email => '.($email ? 'Si':'No');
             }else{
                 $state = false;
             }
         } catch (Exception $th) {
             $state = null;
         }
-        $status = 'verify email => '.($email ? 'Si':'No');
         $response = array("status" => $state, "estatus" => $status);
         return response()->json($response);
     }
