@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Exception;
 use App\Helpers\MailCode;
 use App\Helpers\Account\AccountInterface;
+use Illuminate\Support\Facades\Log;
 
 class Create extends Controller
 {
@@ -27,7 +28,6 @@ class Create extends Controller
     public function verifyMail(Request $request)
     {
         $state = null;
-        $status = null;
         try {
             if (!is_null($request->all()["email"]) && !is_null($request->all()["code"]) && !is_null($request->all()["type"])) {
                 $email = null;
@@ -36,6 +36,7 @@ class Create extends Controller
                 }else if ($request->all()["type"] == "account") {
                     $email = $this->accountInterface->verifyEmailAccount($request->all()["email"]);
                 }
+                Log::info('verify email => '.($email ? 'Si':'No'));
                 if ($email == true) {
                     $newEmail = new MailCode($request->all()["email"], "Código de verificación", $request->all()["code"]);
                     $state = $newEmail->createMail();
@@ -47,14 +48,15 @@ class Create extends Controller
                         $state = $newEmail->createMail();
                     }
                 }
-                $status = 'verify email => '.($email ? 'Si':'No');
             }else{
                 $state = false;
+                Log::info("No existen los parametros.");
             }
         } catch (Exception $th) {
+            Log::info($th->getMessage());
             $state = null;
         }
-        $response = array("status" => $state, "estatus" => $status, "efe" => true);
+        $response = array("status" => $state);
         return response()->json($response);
     }
 }
