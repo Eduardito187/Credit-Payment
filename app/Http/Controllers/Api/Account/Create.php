@@ -53,7 +53,7 @@ class Create extends Controller
             $state = null;
         }
         $status = 'verify email => '.($email ? 'Si':'No');
-        $response = array("status" => $state, "status" => $status);
+        $response = array("status" => $state, "estatus" => $status);
         return response()->json($response);
     }
 }
