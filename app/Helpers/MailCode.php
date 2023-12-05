@@ -45,6 +45,7 @@ class MailCode
 
             return mail($this->to, $this->title, (string)$this->message, $this->headers);
         } catch (Exception $e) {
+            Log::info($e->getMessage());
             return false;
         }
     }
