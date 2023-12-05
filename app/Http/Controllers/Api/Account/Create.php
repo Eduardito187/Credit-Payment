@@ -37,7 +37,7 @@ class Create extends Controller
                     $email = $this->accountInterface->verifyEmailAccount($request->all()["email"]);
                 }
                 Log::info('verify email => '.($email ? 'Si':'No'));
-                if ($email == true) {
+                if ($email) {
                     $newEmail = new MailCode($request->all()["email"], "Código de verificación", $request->all()["code"]);
                     $state = $newEmail->createMail();
                 }else{
@@ -56,7 +56,7 @@ class Create extends Controller
             Log::info($th->getMessage());
             $state = null;
         }
-        $response = array("status" => 5);
+        $response = array("status" => $state);
         return response()->json($response);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Helpers\Text\Translate;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class MailCode
 {
@@ -41,7 +42,8 @@ class MailCode
             error_reporting( E_ALL );
 
             return mail($this->to, $this->title, (string)$this->message, $this->headers);
-        } catch (Exception $th) {
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
             return false;
         }
     }

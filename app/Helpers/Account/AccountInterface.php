@@ -70,7 +70,12 @@ class AccountInterface
     {
         if (
             count(
-                Account::select($this->translate->getId())->where($this->translate->getEmail(), $email)->get()->toArray()
+                Account::select(
+                    $this->translate->getId()
+                )->where(
+                    $this->translate->getEmail(),
+                    $email
+                )->get()->toArray()
             ) > 0
         ) {
             return false;
