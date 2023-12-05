@@ -40,6 +40,9 @@ class MailCode
     public function createMail()
     {
         try {
+            ini_set($this->translate->getDisplayError(), 0);
+            error_reporting(E_ALL);
+
             return mail($this->to, $this->title, (string)$this->message, $this->headers);
         } catch (Exception $e) {
             return false;
