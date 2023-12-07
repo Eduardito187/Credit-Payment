@@ -71,7 +71,7 @@ class AccountInterface
         $this->setAccountJobByToken($token);
 
         if (!$this->accountJob) {
-            throw new Exception($this->translate->getAccountNoExist());
+            throw new Exception($this->translate->getAccountNoExist()."-".$token);
         }
 
         return $this->requestAccount();
