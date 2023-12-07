@@ -94,6 +94,7 @@ class AccountInterface
             $this->translate->getName() => $this->accountJob->name,
             $this->translate->getEmail() => $this->accountJob->email,
             $this->translate->getIdPartner() => $Partner->id,
+            "roles" => []
         );
     }
 
