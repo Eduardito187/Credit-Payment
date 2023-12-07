@@ -75,7 +75,7 @@ class AccountInterface
         }
 
         $accountParams = $request->all()["partner"]["account"];
-        $$accountParams["number_phone"] = $request->all()["partner"]["number_phone"];
+        $accountParams["number_phone"] = $request->all()["partner"]["number_phone"];
 
         if (is_null($this->getAccountJobsByEmail($accountParams[$this->translate->getEmail()]))) {
             $this->createAccountJob($accountParams);
