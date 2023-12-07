@@ -90,10 +90,10 @@ class AccountInterface
     public function requestAccount(){
         $Partner = $this->accountJob->accountPartner->Partner;
         return array(
-            $this->accountJob->getId() => $this->accountJob->id,
-            $this->accountJob->getName() => $this->accountJob->name,
-            $this->accountJob->getEmail() => $this->accountJob->email,
-            $this->accountJob->getIdPartner() => $Partner->id,
+            $this->translate->getId() => $this->accountJob->id,
+            $this->translate->getName() => $this->accountJob->name,
+            $this->translate->getEmail() => $this->accountJob->email,
+            $this->translate->getIdPartner() => $Partner->id,
         );
     }
 
