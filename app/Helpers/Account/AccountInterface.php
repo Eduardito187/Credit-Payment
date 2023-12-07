@@ -350,7 +350,7 @@ class AccountInterface
             if ($this->issetDomain($arrayUser[0])) {
 
                 $response = $this->getByUsernameLogin($arrayUser[1]);
-
+                \Illuminate\Support\Facades\Log::info(json_encode($response));
                 if ($response != null) {
                     if ($response[0][$this->translate->getStatus()] == 1) {
                         if ($response[0][$this->translate->getPassword()] == $this->encriptionPawd($password)) {
