@@ -33,6 +33,7 @@ Route::middleware([CustomValidateToken::class])->group(function () {
         Route::post('account/partner/register', 'createPartner');
         Route::post('account/jobs/register', 'createJob');
     });
+
     /*
     Route::controller(Register::class)->group(function(){
         Route::post('register/account', 'store');
