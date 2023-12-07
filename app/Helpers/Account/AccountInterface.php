@@ -361,7 +361,7 @@ class AccountInterface
 
                             if ($Account != null) {
                                 
-                                if ($Account->accountPartner->status == $this->status->getEnable()) {
+                                if ($Account->accountPartner->Partner->status == $this->status->getEnable()) {
                                     $api_ip = new Ip($ip);
     
                                     $this->setPartnerSession(
