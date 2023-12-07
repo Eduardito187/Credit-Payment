@@ -7,6 +7,7 @@ use App\Models\Account;
 use App\Models\Partner;
 use \Illuminate\Http\Request;
 use App\Models\AccountLogin;
+use Illuminate\Support\Facades\Log;
 use Exception;
 use App\Helpers\Base\Status;
 use App\Helpers\Base\Date;
@@ -99,9 +100,9 @@ class AccountInterface
             $Account->token = $this->tools->generate64B($account[$this->translate->getEmail()]);
             $Account->created_at = $this->date->getFullDate();
             $Account->updated_at = null;
-            $Account->save();
-            return true;
-        } catch (Exception $th) {
+            return $Account->save();
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
             return false;
         }
     }
@@ -155,7 +156,8 @@ class AccountInterface
             $AccountLogin->created_at = $this->date->getFullDate();
             $AccountLogin->updated_at = null;
             return $AccountLogin->save();
-        } catch (Exception $th) {
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
             return false;
         }
     }
@@ -183,8 +185,9 @@ class AccountInterface
             }else{
                 throw new Exception($this->translate->getAccountRegister());
             }
-        } catch (Exception $th) {
-            throw new Exception($th->getMessage());
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+            throw new Exception($e->getMessage());
         }
 
         return false;
@@ -241,7 +244,8 @@ class AccountInterface
             $Partner->created_at = $this->date->getFullDate();
             $Partner->updated_at = null;
             return $Partner->save();
-        } catch (Exception $th) {
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
             return false;
         }
     }
@@ -397,7 +401,8 @@ class AccountInterface
             $Session->id_localization = $id_localization;
             $Session->save();
             return $Session->id;
-        } catch (Exception $th) {
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
             return null;
         }
     }
@@ -416,7 +421,8 @@ class AccountInterface
             $PartnerSession->status = $this->status->getEnable();
             $PartnerSession->save();
             return $PartnerSession->id;
-        } catch (Exception $th) {
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
             return null;
         }
     }

@@ -91,15 +91,9 @@ class Create extends Controller
             $this->accountInterface->setAccountPartnerRelation();
             $response = $this->translate->getResponseApi($this->status->getEnable(), $this->translate->getAddSuccess());
         } catch (Exception $e) {
-            $mensaje = $e->getMessage();
-            $codigo = $e->getCode();
-            $linea = $e->getLine();
-            $archivo = $e->getFile();
-            $detalle = $e->getTraceAsString();
-            $response = $this->translate->getResponseApi($this->status->getDisable(), $mensaje."-".$codigo."-".$linea."-".$archivo."-".$detalle);
+            $response = $this->translate->getResponseApi($this->status->getDisable(), $e->getMessage());
         }
 
-        //$this->translate;
         return response()->json($response);
     }
 
