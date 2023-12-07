@@ -37,6 +37,7 @@ Route::middleware([CustomValidateToken::class])->group(function () {
 
     Route::controller(ControllerLogin::class)->group(function(){
         Route::post('account/validateLogin', 'validateLogin');
+        Route::post('account/getCurrentAccount', 'getCurrentAccount');
     });
 
     /*

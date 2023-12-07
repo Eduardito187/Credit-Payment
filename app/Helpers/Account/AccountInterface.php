@@ -64,6 +64,33 @@ class AccountInterface
     }
 
     /**
+     * @param string $token
+     * @return array
+     */
+    public function currentAccountArray(string $token){
+        $this->setAccountJobByToken($token);
+
+        if (!$this->accountJob) {
+            throw new Exception($this->translate->getAccountNoExist());
+        }
+
+        return $this->requestAccount();
+    }
+
+    /**
+     * @return array
+     */
+    public function requestAccount(){
+        $Partner = $this->accountJob->accountPartner->Partner;
+        return array(
+            $this->accountJob->getId() => $this->accountJob->id,
+            $this->accountJob->getName() => $this->accountJob->name,
+            $this->accountJob->getEmail() => $this->accountJob->email,
+            $this->accountJob->getIdPartner() => $Partner->id,
+        );
+    }
+
+    /**
      * @param Request $request
      * @return void
      */
@@ -174,6 +201,15 @@ class AccountInterface
     private function setAccountJob(array $account)
     {
         $this->accountJob = Account::where($this->translate->getEmail(), $account[$this->translate->getEmail()])->where($this->translate->getToken(), $this->tools->generate64B($account[$this->translate->getEmail()]))->first();
+    }
+
+    /**
+     * @param string $tokent
+     * @return void
+     */
+    private function setAccountJobByToken(string $token)
+    {
+        $this->accountJob = Account::where("token", $token)->first();
     }
 
     /**

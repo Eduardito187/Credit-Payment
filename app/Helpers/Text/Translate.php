@@ -91,7 +91,7 @@ class Translate
     const PERCENT = "%";
     const COLUMN_NAME = "name";
     const COLUMN_ID_CITY = "id_city";
-    const MESSAGES_LOGN       = [
+    const MESSAGES_LOGN = [
         "Bienvenido.",
         "Contraseña erronea.",
         "La cuenta se encuentra desactivada.",
@@ -109,6 +109,7 @@ class Translate
     const PARTNER_REGISTER = "La cuenta ya se encuentra registrada.";
     const ID_PARTNER = "id_partner";
     const ADD_SUCCESS = "Registro exitoso.";
+    const ACCOUNT_RESPONSE = "Cuenta obtenida exitosamente.";
 
     public function __construct()
     {
@@ -862,5 +863,21 @@ class Translate
     public function getAddSuccess()
     {
         return self::ADD_SUCCESS;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccountResponse(){
+        return self::ACCOUNT_RESPONSE;
+    }
+
+    
+    /**
+     * @return string
+     */
+    public function getAccountNoExist()
+    {
+        return self::MESSAGES_LOGN[6];
     }
 }

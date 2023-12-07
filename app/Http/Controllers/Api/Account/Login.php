@@ -43,4 +43,20 @@ class Login extends Controller
     {
         return response()->json($this->accountInterface->validateLogin($request));
     }
+
+    public function getCurrentAccount(Request $request)
+    {
+        $response = null;
+        
+        try {
+            $response = $this->translate->getResponseApi(
+                $this->accountInterface->currentAccountArray($request->header($this->translate->getAuthorization())),
+                $this->translate->getAccountResponse()
+            );
+        } catch (Exception $e) {
+            $response = $this->translate->getResponseApi(null, $e->getMessage());
+        }
+
+        return response()->json($response);
+    }
 }
