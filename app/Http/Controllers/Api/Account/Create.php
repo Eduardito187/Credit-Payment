@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Exception;
 use App\Helpers\MailCode;
 use App\Helpers\Account\AccountInterface;
-use App\Helpers\Base\Ip;
-use Illuminate\Support\Facades\Log;
 use App\Helpers\Text\Translate;
 use App\Helpers\Base\Status;
 

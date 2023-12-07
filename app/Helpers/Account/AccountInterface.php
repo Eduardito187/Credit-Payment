@@ -7,7 +7,6 @@ use App\Models\Account;
 use App\Models\Partner;
 use \Illuminate\Http\Request;
 use App\Models\AccountLogin;
-use Illuminate\Support\Facades\Log;
 use Exception;
 use App\Helpers\Base\Status;
 use App\Helpers\Base\Date;
@@ -106,7 +105,6 @@ class AccountInterface
             $Account->updated_at = null;
             return $Account->save();
         } catch (Exception $e) {
-            Log::info($e->getMessage());
             return false;
         }
     }
@@ -165,7 +163,6 @@ class AccountInterface
             $AccountLogin->updated_at = null;
             return $AccountLogin->save();
         } catch (Exception $e) {
-            Log::info($e->getMessage());
             return false;
         }
     }
@@ -195,7 +192,6 @@ class AccountInterface
                 throw new Exception($this->translate->getAccountRegister());
             }
         } catch (Exception $e) {
-            Log::info($e->getMessage());
             throw new Exception($e->getMessage());
         }
 
@@ -255,7 +251,6 @@ class AccountInterface
             $Partner->updated_at = null;
             return $Partner->save();
         } catch (Exception $e) {
-            Log::info($e->getMessage());
             return false;
         }
     }
@@ -414,7 +409,6 @@ class AccountInterface
             $Session->save();
             return $Session->id;
         } catch (Exception $e) {
-            Log::info($e->getMessage());
             return null;
         }
     }
@@ -434,7 +428,6 @@ class AccountInterface
             $PartnerSession->save();
             return $PartnerSession->id;
         } catch (Exception $e) {
-            Log::info($e->getMessage());
             return null;
         }
     }
