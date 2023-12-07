@@ -350,7 +350,7 @@ class AccountInterface
             if ($this->issetDomain($arrayUser[0])) {
 
                 $response = $this->getByUsernameLogin($arrayUser[1]);
-                \Illuminate\Support\Facades\Log::info(json_encode($response));
+
                 if ($response != null) {
                     if ($response[0][$this->translate->getStatus()] == 1) {
                         if ($response[0][$this->translate->getPassword()] == $this->encriptionPawd($password)) {
@@ -360,20 +360,24 @@ class AccountInterface
                             );
 
                             if ($Account != null) {
-
-                                $api_ip = new Ip($ip);
-
-                                $this->setPartnerSession(
-                                    $Account->accountPartner->id_partner,
-                                    $this->setSession(
-                                        $api_ip->validIp(),
-                                        $this->addressInterface->createGeo(
-                                            $api_ip->getGeo()
+                                
+                                if ($Account->accountPartner->status) {
+                                    $api_ip = new Ip($ip);
+    
+                                    $this->setPartnerSession(
+                                        $Account->accountPartner->id_partner,
+                                        $this->setSession(
+                                            $api_ip->validIp(),
+                                            $this->addressInterface->createGeo(
+                                                $api_ip->getGeo()
+                                            )
                                         )
-                                    )
-                                );
+                                    );
 
-                                return $this->translate->messageLogin(true, 0, $Account->token);
+                                    return $this->translate->messageLogin(true, 0, $Account->token);
+                                }else{
+                                    return $this->translate->messageLogin(false, 7);
+                                }
                             } else {
                                 return $this->translate->messageLogin(false, 6);
                             }
