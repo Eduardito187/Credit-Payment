@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use Exception;
 use App\Helpers\MailCode;
 use App\Helpers\Account\AccountInterface;
+use App\Helpers\Base\Ip;
 use Illuminate\Support\Facades\Log;
+use App\Helpers\Text\Translate;
+use App\Helpers\Base\Status;
 
 class Create extends Controller
 {
@@ -16,9 +19,20 @@ class Create extends Controller
      */
     protected $accountInterface;
 
-    public function __construct(
-    ) {
+    /**
+     * @var Translate
+     */
+    protected $translate;
+
+    /**
+     * @var Status
+     */
+    protected $status;
+
+    public function __construct() {
         $this->accountInterface = new AccountInterface();
+        $this->translate = new Translate();
+        $this->status = new Status();
     }
 
     /**
@@ -60,6 +74,45 @@ class Create extends Controller
         }
 
         $response = array("status" => $state);
+        return response()->json($response);
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function createPartner(Request $request)
+    {
+        $response = null;
+
+        try {
+            $this->accountInterface->createAccountJobByPartner($request);
+            $this->accountInterface->createAccountJobPartner($request);
+            $this->accountInterface->setAccountPartnerRelation();
+            $response = $this->translate->getResponseApi($this->status->getEnable(), $this->translate->getAddSuccess());
+        } catch (\Throwable $th) {
+            $response = $this->translate->getResponseApi($this->status->getDisable(), $th->getMessage());
+        }
+
+        //$this->translate;
+        return response()->json($response);
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function createJob(Request $request)
+    {
+        $response = null;
+
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+        //$this->translate;
         return response()->json($response);
     }
 }

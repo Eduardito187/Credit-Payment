@@ -104,6 +104,10 @@ class Translate
     const STATUS = "status";
     const ID_ACCOUNT = "id_account";
     const ARROBA = "@";
+    const PARTNER_ALREADY = "Partner already registered.";
+    const PARTNER_REGISTER = "La cuenta ya se encuentra registrada.";
+    const ID_PARTNER = "id_partner";
+    const ADD_SUCCESS = "Registro exitoso.";
 
     public function __construct()
     {
@@ -790,14 +794,71 @@ class Translate
     /**
      * @return string
      */
-    public function getIdAccount(){
+    public function getIdAccount()
+    {
         return self::ID_ACCOUNT;
     }
 
     /**
      * @return string
      */
-    public function getArroba(){
+    public function getArroba()
+    {
         return self::ARROBA;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPartnerAlready()
+    {
+        return self::PARTNER_ALREADY;
+    }
+
+    /**
+     * @param string $texto
+     * @return string
+     */
+    function camelCase(string $texto)
+    {
+        $palabras = preg_split('/[\s_]+/', $texto);
+        $palabras = array_map('ucfirst', $palabras);
+        $camelCase = implode('', $palabras);
+        return $camelCase;
+    }
+
+    /**
+     * @param string $texto
+     * @return string
+     */
+    function snakeCase(string $texto)
+    {
+        $snakeCase = preg_replace('/[\s_]+/', '_', $texto);
+        $snakeCase = strtolower($snakeCase);
+        return $snakeCase;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccountRegister()
+    {
+        return self::PARTNER_REGISTER;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdPartner()
+    {
+        return self::ID_PARTNER;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddSuccess()
+    {
+        return self::ADD_SUCCESS;
     }
 }

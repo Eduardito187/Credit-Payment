@@ -30,6 +30,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware([CustomValidateToken::class])->group(function () {
     Route::controller(ControllerCreateAccount::class)->group(function(){
         Route::post('account/verifyMail', 'verifyMail');
+        Route::post('account/partner/register', 'createPartner');
+        Route::post('account/jobs/register', 'createJob');
     });
     /*
     Route::controller(Register::class)->group(function(){
