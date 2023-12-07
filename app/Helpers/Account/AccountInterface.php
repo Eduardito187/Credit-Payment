@@ -100,6 +100,7 @@ class AccountInterface
             $Account->email = $account[$this->translate->getEmail()];
             $Account->telefono = $account["number_phone"];
             $Account->token = $this->tools->generate64B($account[$this->translate->getEmail()]);
+            $Account->status = $this->status->getDisable();
             $Account->created_at = $this->date->getFullDate();
             $Account->updated_at = null;
             return $Account->save();
