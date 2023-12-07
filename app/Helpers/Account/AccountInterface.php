@@ -75,7 +75,7 @@ class AccountInterface
         }
 
         $accountParams = $request->all()["partner"]["account"];
-        $$accountParams["telefono"] = $request->all()["partner"]["telefono"];
+        $$accountParams["number_phone"] = $request->all()["partner"]["number_phone"];
 
         if (is_null($this->getAccountJobsByEmail($accountParams[$this->translate->getEmail()]))) {
             $this->createAccountJob($accountParams);
@@ -98,7 +98,7 @@ class AccountInterface
             $Account = new Account();
             $Account->name = $account[$this->translate->getName()];
             $Account->email = $account[$this->translate->getEmail()];
-            $Account->telefono = $account["telefono"];
+            $Account->telefono = $account["number_phone"];
             $Account->token = $this->tools->generate64B($account[$this->translate->getEmail()]);
             $Account->created_at = $this->date->getFullDate();
             $Account->updated_at = null;
@@ -239,7 +239,7 @@ class AccountInterface
             $Partner->code = $partner["code"];
             $Partner->name = $partner[$this->translate->getName()];
             $Partner->email = $partner[$this->translate->getEmail()];
-            $Partner->telefono = $partner["telefono"];
+            $Partner->telefono = $partner["number_phone"];
             $Partner->token = $this->tools->generateToken($partner["code"]);
             $Partner->status = $this->status->getDisable();
             $Partner->id_account = $this->accountJob->id;
