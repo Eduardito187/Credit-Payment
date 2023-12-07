@@ -99,7 +99,7 @@ class Translate
         "El partner ingresado no existe.",
         "Formato invalido de usuario.",
         "La cuenta no existe.",
-        "La cuenta de tu negocio se encuentra bloqueada por favor contactarse con nosotros."
+        "La cuenta de su negocio se encuentra bloqueada por favor contactarse con nosotros."
     ];
     const TEXT = "text";
     const STATUS = "status";
