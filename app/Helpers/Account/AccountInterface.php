@@ -16,6 +16,7 @@ use App\Models\PartnerSession;
 use App\Models\Session;
 use App\Helpers\Base\Tools;
 use App\Models\AccountPartner;
+use App\Helpers\TokenAccess;
 
 class AccountInterface
 {
@@ -54,6 +55,11 @@ class AccountInterface
      */
     protected $currentPartner = null;
 
+    /**
+     * @var TokenAccess
+     */
+    protected $tokenAccess = null;
+
     public function __construct()
     {
         $this->translate = new Translate();
@@ -68,10 +74,11 @@ class AccountInterface
      * @return array
      */
     public function currentAccountArray(string $token){
-        $this->setAccountJobByToken($token);
+        $this->tokenAccess = new TokenAccess($token);
+        $this->setAccountJobByToken($this->tokenAccess->getToken());
 
         if (!$this->accountJob) {
-            throw new Exception($this->translate->getAccountNoExist()."-".$token);
+            throw new Exception($this->translate->getAccountNoExist());
         }
 
         return $this->requestAccount();

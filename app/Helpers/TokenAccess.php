@@ -53,11 +53,16 @@ class TokenAccess
     }
 
     /**
-     * @return bool
+     * @return string
      */
     public function getToken()
     {
+        if ($this->token == null) {
+            return null;
+        }
+
         $token = explode($this->translate->getSpace(), $this->token);
+
         if (count($token) == 2) {
             return $token[1];
         } else {
