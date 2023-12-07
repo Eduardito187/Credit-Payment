@@ -154,7 +154,7 @@ class AccountInterface
             $AccountLogin = new AccountLogin();
             $AccountLogin->username = $account[$this->translate->getUsername()];
             $AccountLogin->password = $this->encriptionPawd($account[$this->translate->getPassword()]);
-            $AccountLogin->status = $this->status->getEnable();
+            $AccountLogin->status = $this->status->getDisable();
             $AccountLogin->id_account = $this->accountJob->id;
             $AccountLogin->created_at = $this->date->getFullDate();
             $AccountLogin->updated_at = null;
@@ -183,7 +183,7 @@ class AccountInterface
                 $accountPartner = new AccountPartner();
                 $accountPartner->id_partner = $this->currentPartner->id;
                 $accountPartner->id_account = $this->accountJob->id;
-                $accountPartner->status = $this->status->getEnable();
+                $accountPartner->status = $this->status->getDisable();
                 return $accountPartner->save();
             }else{
                 throw new Exception($this->translate->getAccountRegister());
