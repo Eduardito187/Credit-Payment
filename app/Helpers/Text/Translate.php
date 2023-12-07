@@ -833,6 +833,7 @@ class Translate
      */
     function snakeCase(string $texto)
     {
+        $texto = str_replace(' ', '_', $texto);
         $snakeCase = preg_replace('/[\s_]+/', '_', $texto);
         $snakeCase = strtolower($snakeCase);
         return $snakeCase;
