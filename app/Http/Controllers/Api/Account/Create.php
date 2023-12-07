@@ -90,8 +90,13 @@ class Create extends Controller
             $this->accountInterface->createAccountJobPartner($request);
             $this->accountInterface->setAccountPartnerRelation();
             $response = $this->translate->getResponseApi($this->status->getEnable(), $this->translate->getAddSuccess());
-        } catch (\Throwable $th) {
-            $response = $this->translate->getResponseApi($this->status->getDisable(), $th->getLine());
+        } catch (Exception $e) {
+            $mensaje = $e->getMessage();
+            $codigo = $e->getCode();
+            $linea = $e->getLine();
+            $archivo = $e->getFile();
+            $detalle = $e->getTraceAsString();
+            $response = $this->translate->getResponseApi($this->status->getDisable(), $mensaje."-".$codigo."-".$linea."-".$archivo."-".$detalle);
         }
 
         //$this->translate;
