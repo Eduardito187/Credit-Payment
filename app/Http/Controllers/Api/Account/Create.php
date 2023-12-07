@@ -91,7 +91,7 @@ class Create extends Controller
             $this->accountInterface->setAccountPartnerRelation();
             $response = $this->translate->getResponseApi($this->status->getEnable(), $this->translate->getAddSuccess());
         } catch (\Throwable $th) {
-            $response = $this->translate->getResponseApi($this->status->getDisable(), $th->getMessage());
+            $response = $this->translate->getResponseApi($this->status->getDisable(), $th->getLine());
         }
 
         //$this->translate;
