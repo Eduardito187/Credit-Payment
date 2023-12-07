@@ -221,7 +221,7 @@ class AccountInterface
         }
 
         $partnerParams = $request->all()["partner"];
-        $partnerParams["alias"] = $this->translate->camelCase($partnerParams[$this->translate->getName()]);
+        $partnerParams["alias"] = strtoupper($this->translate->camelCase($partnerParams[$this->translate->getName()]));
         $partnerParams["code"] = $this->translate->snakeCase($partnerParams[$this->translate->getName()]);
         $this->createPartner($partnerParams);
         $this->getCurrentAccountPartner($partnerParams["code"]);
@@ -235,7 +235,7 @@ class AccountInterface
         try {
             $this->validateDomainCode($partner["code"]);
             $Partner = new Partner();
-            $Partner->alias = $partner["alias"];
+            $Partner->alias = strtoupper($partner["alias"]);
             $Partner->code = $partner["code"];
             $Partner->name = $partner[$this->translate->getName()];
             $Partner->email = $partner[$this->translate->getEmail()];
@@ -267,7 +267,7 @@ class AccountInterface
      * @return void
      */
     private function getCurrentAccountPartner($code){
-        $this->currentPartner = Partner::where($this->translate->getDomain(), $code)->first();
+        $this->currentPartner = Partner::where("code", $code)->first();
     }
 
     /**
@@ -447,7 +447,7 @@ class AccountInterface
         $Partner = Partner::select(
             $this->translate->getId()
         )->where(
-            $this->translate->getDomain(),
+            "alias",
             strtoupper($domain)
         )->get()->toArray();
 
