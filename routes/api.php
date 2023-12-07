@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CustomValidateToken;
 use App\Http\Controllers\Api\Account\Create as ControllerCreateAccount;
+use App\Http\Controllers\Api\Account\Login as ControllerLogin;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,10 @@ Route::middleware([CustomValidateToken::class])->group(function () {
         Route::post('account/verifyMail', 'verifyMail');
         Route::post('account/partner/register', 'createPartner');
         Route::post('account/jobs/register', 'createJob');
+    });
+
+    Route::controller(ControllerLogin::class)->group(function(){
+        Route::post('account/validateLogin', 'validateLogin');
     });
 
     /*

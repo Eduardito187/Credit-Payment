@@ -92,7 +92,8 @@ class AccountInterface
      * @param array $account
      * @return bool
      */
-    public function createAccountJob(array $account){
+    public function createAccountJob(array $account)
+    {
         try {
             $this->validateEmail($account[$this->translate->getEmail()]);
             $Account = new Account();
@@ -113,7 +114,8 @@ class AccountInterface
     /**
      * @param string $email
      */
-    private function validateEmail(string $email){
+    private function validateEmail(string $email)
+    {
         $emailsAccoun = Account::select($this->translate->getId())->where($this->translate->getEmail(), $email)->get()->toArray();
         if (count($emailsAccoun) > 0) {
             throw new Exception($this->translate->getEmailAlready());
@@ -124,11 +126,12 @@ class AccountInterface
      * @param string $value
      * @return int|null
      */
-    public function getAccountJobsByEmail(string $value){
+    public function getAccountJobsByEmail(string $value)
+    {
         $accountJobs = Account::select($this->translate->getId())->where($this->translate->getEmail(), $value)->get()->toArray();
         if (count($accountJobs) > 0) {
             return $accountJobs[0][$this->translate->getId()];
-        }else{
+        } else {
             return null;
         }
     }
@@ -136,11 +139,12 @@ class AccountInterface
     /**
      * @return int|null
      */
-    public function getAccountLogin(){
+    public function getAccountLogin()
+    {
         $accountLogin = AccountLogin::select($this->translate->getId())->where($this->translate->getIdAccount(), $this->accountJob->id)->get()->toArray();
         if (count($accountLogin) > 0) {
             return $accountLogin[0][$this->translate->getId()];
-        }else{
+        } else {
             return null;
         }
     }
@@ -149,7 +153,8 @@ class AccountInterface
      * @param array $account
      * @return bool
      */
-    public function createAccountJobLoggin(array $account){
+    public function createAccountJobLoggin(array $account)
+    {
         try {
             $AccountLogin = new AccountLogin();
             $AccountLogin->username = $account[$this->translate->getUsername()];
@@ -169,15 +174,16 @@ class AccountInterface
      * @param array $account
      * @return void
      */
-    private function setAccountJob(array $account){
-        $this->accountJob = Account::where($this->translate->getEmail(), $account[$this->translate->getEmail()])->
-            where($this->translate->getToken(), $this->tools->generate64B($account[$this->translate->getEmail()]))->first();
+    private function setAccountJob(array $account)
+    {
+        $this->accountJob = Account::where($this->translate->getEmail(), $account[$this->translate->getEmail()])->where($this->translate->getToken(), $this->tools->generate64B($account[$this->translate->getEmail()]))->first();
     }
 
     /**
      * @return bool
      */
-    public function setAccountPartnerRelation(){
+    public function setAccountPartnerRelation()
+    {
         try {
             if (is_null($this->getAccountPartner($this->currentPartner->id, $this->accountJob->id))) {
                 $accountPartner = new AccountPartner();
@@ -185,7 +191,7 @@ class AccountInterface
                 $accountPartner->id_account = $this->accountJob->id;
                 $accountPartner->status = $this->status->getDisable();
                 return $accountPartner->save();
-            }else{
+            } else {
                 throw new Exception($this->translate->getAccountRegister());
             }
         } catch (Exception $e) {
@@ -201,12 +207,12 @@ class AccountInterface
      * @param int $id_account
      * @return int|null
      */
-    public function getAccountPartner(int $id_partner, int $id_account){
-        $AccountPartner = AccountPartner::select($this->translate->getIdPartner())->where($this->translate->getIdPartner(), $id_partner)->
-        where($this->translate->getIdAccount(), $id_account)->get()->toArray();
+    public function getAccountPartner(int $id_partner, int $id_account)
+    {
+        $AccountPartner = AccountPartner::select($this->translate->getIdPartner())->where($this->translate->getIdPartner(), $id_partner)->where($this->translate->getIdAccount(), $id_account)->get()->toArray();
         if (count($AccountPartner) > 0) {
             return  $AccountPartner[0][$this->translate->getIdPartner()];
-        }else{
+        } else {
             return null;
         }
     }
@@ -232,7 +238,8 @@ class AccountInterface
      * @param array $partner
      * @return bool
      */
-    public function createPartner(array $partner){
+    public function createPartner(array $partner)
+    {
         try {
             $this->validateDomainCode($partner["code"]);
             $Partner = new Partner();
@@ -256,7 +263,8 @@ class AccountInterface
     /**
      * @param string $code
      */
-    private function validateDomainCode(string $code){
+    private function validateDomainCode(string $code)
+    {
         $Partner = Partner::select($this->translate->getId())->where("code", $code)->get()->toArray();
         if (count($Partner) > 0) {
             throw new Exception($this->translate->getPartnerAlready());
@@ -267,7 +275,8 @@ class AccountInterface
      * @param string $code
      * @return void
      */
-    private function getCurrentAccountPartner($code){
+    private function getCurrentAccountPartner($code)
+    {
         $this->currentPartner = Partner::where("code", $code)->first();
     }
 

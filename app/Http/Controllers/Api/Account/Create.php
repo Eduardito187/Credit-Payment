@@ -29,7 +29,8 @@ class Create extends Controller
      */
     protected $status;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->accountInterface = new AccountInterface();
         $this->translate = new Translate();
         $this->status = new Status();
@@ -50,24 +51,23 @@ class Create extends Controller
 
                 if ($request->all()["type"] == "partner") {
                     $email = $this->accountInterface->verifyEmailPartner($request->all()["email"]);
-                }else if ($request->all()["type"] == "account") {
+                } else if ($request->all()["type"] == "account") {
                     $email = $this->accountInterface->verifyEmailAccount($request->all()["email"]);
                 }
 
                 if ($email) {
                     $newEmail = new MailCode($request->all()["email"], "Código de verificación", $request->all()["code"]);
                     $state = $newEmail->createMail();
-                }else{
+                } else {
                     if (!$request->all()["restore"]) {
                         $state = false;
-                    }else{
+                    } else {
                         $newEmail = new MailCode($request->all()["email"], "Código de restauración", $request->all()["code"]);
                         $state = $newEmail->createMail();
                     }
                 }
-            }else{
+            } else {
                 $state = false;
-                
             }
         } catch (Exception $th) {
             $state = null;
