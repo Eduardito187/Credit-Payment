@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('code');
-            $table->string('duration');
+            $table->integer('duration');
             $table->boolean('status');
             $table->timestamp('created_at');
             $table->timestamp('updated_at')->nullable();
