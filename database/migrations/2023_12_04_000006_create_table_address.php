@@ -16,17 +16,17 @@ return new class extends Migration
         Schema::create('address', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_municipality')->nullable();
+            $table->foreign('id_municipality')->references('id')->on('municipality')->onDelete('cascade');
             $table->unsignedBigInteger('id_country')->nullable();
+            $table->foreign('id_country')->references('id')->on('country')->onDelete('cascade');
             $table->unsignedBigInteger('id_city')->nullable();
+            $table->foreign('id_city')->references('id')->on('city')->onDelete('cascade');
             $table->unsignedBigInteger('id_address_extra')->nullable();
+            $table->foreign('id_address_extra')->references('id')->on('address_extra')->onDelete('cascade');
             $table->unsignedBigInteger('id_localization')->nullable();
+            $table->foreign('id_localization')->references('id')->on('localization')->onDelete('cascade');
             $table->timestamp('created_at');
             $table->timestamp('updated_at')->nullable();
-            $table->foreign('id_municipality')->references('id')->on('municipality')->onDelete('cascade');
-            $table->foreign('id_country')->references('id')->on('country')->onDelete('cascade');
-            $table->foreign('id_city')->references('id')->on('city')->onDelete('cascade');
-            $table->foreign('id_address_extra')->references('id')->on('address_extra')->onDelete('cascade');
-            $table->foreign('id_localization')->references('id')->on('localization')->onDelete('cascade');
         });
     }
 
