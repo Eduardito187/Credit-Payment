@@ -78,6 +78,14 @@ class AccountInterface
     /**
      * @return array
      */
+    public function getNegocios()
+    {
+        return Negocio::all()->toArray();
+    }
+
+    /**
+     * @return array
+     */
     public function getTipoNegocio()
     {
         return TipoNegocio::all()->toArray();

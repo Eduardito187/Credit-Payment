@@ -114,6 +114,8 @@ class Negocio extends Controller
      */
     public function getNegociosList(Request $request)
     {
-        //
+        return response()->json(
+            $this->accountInterface->getNegocios()
+        );
     }
 }
