@@ -119,7 +119,7 @@ class AccountInterface
         }
 
         return array(
-            "id" + $address->id,
+            "id" => $address->id,
             "municipality" => $this->getMunicipalityArray($address->getMunicipality),
             "country" => $this->getCountryArray($address->getCountry),
             "city" => $this->getCityArray($address->getCity),
