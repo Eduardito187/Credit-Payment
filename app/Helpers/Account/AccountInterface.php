@@ -102,9 +102,9 @@ class AccountInterface
         return array(
             "id" => $negocio->id,
             "name" => $negocio->name,
-            "cargo" => $negocio->getCargoNegocio()->toArray(),
-            "rubro" => $negocio->getRubroNegocio()->toArray(),
-            "tipo" => $negocio->getTipoNegocio()->toArray(),
+            "cargo" => $negocio->getCargoNegocio->toArray(),
+            "rubro" => $negocio->getRubroNegocio->toArray(),
+            "tipo" => $negocio->getTipoNegocio->toArray(),
             "address" => $this->getAddressArray($negocio->getAddress)
         );
     }
