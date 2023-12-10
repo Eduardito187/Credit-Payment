@@ -110,10 +110,28 @@ class Translate
     const ID_PARTNER = "id_partner";
     const ADD_SUCCESS = "Registro exitoso.";
     const ACCOUNT_RESPONSE = "Cuenta obtenida exitosamente.";
+    const ERROR_QUERY = "Ocurrio un error al realizar la acción.";
+    const SUCCESS_QUERY = "Accion realizada exitosamente.";
 
     public function __construct()
     {
         //
+    }
+
+    /**
+     * @return string
+     */
+    public function getErrorQuery()
+    {
+        return self::ERROR_QUERY;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSuccessQuery()
+    {
+        return self::SUCCESS_QUERY;
     }
 
     /**

@@ -42,7 +42,9 @@ class Negocio extends Controller
      */
     public function createNegocio(Request $request)
     {
-        //
+        return response()->json(
+            $this->accountInterface->createNegocioCustomer($request->all())
+        );
     }
 
     /**
@@ -53,7 +55,9 @@ class Negocio extends Controller
      */
     public function getNegociosCustomer(Request $request)
     {
-        //
+        return response()->json(
+            $this->accountInterface->getAllCustomerNegociosArray()
+        );
     }
 
     /**
@@ -64,7 +68,9 @@ class Negocio extends Controller
      */
     public function updateNegocio(Request $request)
     {
-        //
+        return response()->json(
+            $this->accountInterface->updateNegocioApi($request->all())
+        );
     }
 
     /**

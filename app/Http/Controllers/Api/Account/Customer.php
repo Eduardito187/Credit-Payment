@@ -42,7 +42,9 @@ class Customer extends Controller
      */
     public function createCustomer(Request $request)
     {
-        //
+        return response()->json(
+            $this->accountInterface->createCustomerAccount($request->all())
+        );
     }
 
     /**
@@ -53,7 +55,9 @@ class Customer extends Controller
      */
     public function getCustomersList(Request $request)
     {
-        //
+        return response()->json(
+            $this->accountInterface->getAllCustomers()
+        );
     }
 
     /**
@@ -64,7 +68,9 @@ class Customer extends Controller
      */
     public function getCustomer(Request $request)
     {
-        //
+        return response()->json(
+            $this->accountInterface->getCustomerApi($request->all())
+        );
     }
 
     /**
@@ -75,6 +81,8 @@ class Customer extends Controller
      */
     public function changeStatusCustomer(Request $request)
     {
-        //
+        return response()->json(
+            $this->accountInterface->updateCustomerApi($request->all())
+        );
     }
 }

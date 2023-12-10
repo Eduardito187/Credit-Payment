@@ -137,7 +137,210 @@ class AccountInterface
             return null;
         }
 
-        return $municipality->toArray();
+        return array(
+            "id" => $municipality->id,
+            "name" => $municipality->name,
+            "city" => $municipality->getCity->toArray()
+        );
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getAllCustomers()
+    {
+        $customers = Customer::all();
+        $data = [];
+
+        foreach ($customers as $customer) {
+            $data[] = $this->getCustomerArray($customer);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getCustomerArray($customer)
+    {
+        if (is_null($customer)) {
+            return null;
+        }
+
+        return array(
+            "id" => $customer->id,
+            "name" => $customer->name,
+            "email" => $customer->email,
+            "telefono" => $customer->telefono,
+            "status" => $customer->status,
+            "address" => $this->getAddressArray($customer->getAddress),
+        );
+    }
+
+    public function getAllCustomerNegociosArray()
+    {
+        $customerNegocios = CustomerNegocio::all();
+        $data = [];
+
+        foreach ($customerNegocios as $item) {
+            $data[] = array(
+                "customer" => $this->getCustomerArray($item->getCustomer),
+                "negocio" => $this->getNegocioArray($item->getNegocio)
+            );
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array $bodyData
+     * @return array|null
+     */
+    public function getCustomerApi($bodyData)
+    {
+        $customer = Customer::find($bodyData["id_customer"]);
+
+        if(is_null($customer)) {
+            return null;
+        }
+
+        return $this->getCustomerArray($customer);
+    }
+
+    /**
+     * @param array $bodyData
+     * @return array|null
+     */
+    public function updateNegocioApi($bodyData)
+    {
+        $negocio = Negocio::find($bodyData["id_negocio"]);
+
+        if(is_null($negocio)) {
+            return null;
+        }
+
+        return $this->responseApi(
+            $this->updateNameNegocio($negocio, $bodyData["name"])
+        );
+    }
+
+    /**
+     * @param array $bodyData
+     * @return array|null
+     */
+    public function createNegocioCustomer($bodyData)
+    {
+        $status = false;
+
+        try {
+            $negocio = new Negocio();
+            $negocio->name = $bodyData["name"];
+            $negocio->id_cargo_negocio = null;
+            $negocio->id_rubro_negocio = null;
+            $negocio->id_tipo_negocio = null;
+            $negocio->id_address = null;
+            $negocio->created_at = $this->date->getFullDate();
+            $negocio->updated_at = null;
+            $status = $negocio->save();
+
+            if ($status) {
+                $status = $this->assingCustomerNegocio($bodyData["id_customer"], $negocio->id);
+            }
+        } catch (Exception $e) {
+            $status = false;
+        }
+
+        return $this->responseApi($status);
+    }
+
+    /**
+     * @param int $idCustomer
+     * @param int $idNegocio
+     * @return bool
+     */
+    public function assingCustomerNegocio($idCustomer, $idNegocio)
+    {
+        try {
+            $customerNegocio = new CustomerNegocio();
+            $customerNegocio->id_customer = $idCustomer;
+            $customerNegocio->id_negocios = $idNegocio;
+            return $customerNegocio->save();
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @param Negocio $negocio
+     * @param string $name
+     * @return bool
+     */
+    public function updateNameNegocio($negocio, $name){
+        $negocio->name = $name;
+        return $negocio->save();
+    }
+
+    /**
+     * @param array $bodyData
+     * @return array|null
+     */
+    public function createCustomerAccount($bodyData)
+    {
+        try {
+            $Customer = new Customer();
+            $Customer->name = $bodyData["name"];
+            $Customer->email = $bodyData["email"];
+            $Customer->telefono = $bodyData["telefono"];
+            $Customer->id_address = null;
+            $Customer->status = false;
+            $Customer->created_at = $this->date->getFullDate();
+            $Customer->updated_at = null;
+            return $Customer->save();
+        } catch (Exception $e) {
+            return null;
+        }
+    }
+
+    /**
+     * @param array $bodyData
+     * @return array|null
+     */
+    public function updateCustomerApi($bodyData)
+    {
+        $customer = Customer::find($bodyData["id_customer"]);
+
+        if(is_null($customer)) {
+            return null;
+        }
+
+        return $this->responseApi(
+            $this->updateStatusCustomer($customer, $bodyData["status"])
+        );
+    }
+
+    /**
+     * @param Customer $customer
+     * @param bool $status
+     * @return bool
+     */
+    public function updateStatusCustomer($customer, $status){
+        $customer->status = $status;
+        return $customer->save();
+    }
+
+    /**
+     * @param bool $status
+     * @return array|null
+     */
+    public function responseApi($status)
+    {
+        return array(
+            "status" => $status,
+            "response" => $status
+                ? $this->translate->getErrorQuery()
+                : $this->translate->getSuccessQuery()
+        );
     }
 
     /**

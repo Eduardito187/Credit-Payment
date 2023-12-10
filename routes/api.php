@@ -45,7 +45,7 @@ Route::middleware([CustomValidateToken::class])->group(function () {
 
     Route::controller(ControllerCustomer::class)->group(function(){
         Route::post('customer/createCustomer', 'createCustomer');
-        Route::post('customer/getCustomersList', 'getCustomersList');
+        Route::get('customer/getCustomersList', 'getCustomersList');
         Route::post('customer/getCustomer', 'getCustomer');
         Route::post('customer/changeStatusCustomer', 'changeStatusCustomer');
     });
