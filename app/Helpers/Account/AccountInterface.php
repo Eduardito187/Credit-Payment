@@ -4,6 +4,7 @@ namespace App\Helpers\Account;
 
 use App\Helpers\Text\Translate;
 use App\Models\Account;
+use App\Models\CustomerPartner;
 use App\Models\Partner;
 use \Illuminate\Http\Request;
 use App\Models\AccountLogin;
@@ -160,6 +161,7 @@ class AccountInterface
     }
 
     /**
+     * @param Customer $customer
      * @return array|null
      */
     public function getCustomerArray($customer)
@@ -175,7 +177,66 @@ class AccountInterface
             "telefono" => $customer->telefono,
             "status" => $customer->status,
             "address" => $this->getAddressArray($customer->getAddress),
-            "negocio" => $this->getCustomersNegocios($customer->getCustomerNegocio)
+            "negocio" => $this->getCustomersNegocios($customer->getCustomerNegocio),
+            "partner" => $this->getCustomerPartners($customer->getCustomerPartner)
+        );
+    }
+
+    /**
+     * @param CustomerPartner $customerPartner
+     * @return array
+     */
+    public function getCustomerPartners($customerPartner)
+    {
+        $data = [];
+
+        foreach ($customerPartner as $key => $item) {
+            $data[] = $this->getPartnerArray($item->getPartner);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param Partner $partner
+     * @return array|null
+     */
+    public function getPartnerArray($partner)
+    {
+        if (is_null($partner)) {
+            return null;
+        }
+
+        return array(
+            "id" => $partner->id,
+            "alias" => $partner->alias,
+            "code" => $partner->code,
+            "name" => $partner->name,
+            "email" => $partner->email,
+            "telefono" => $partner->telefono,
+            "token" => $partner->token,
+            "status" => $partner->status,
+            "master" => $this->getAccountMaster($partner->accountMaster),
+        );
+    }
+
+    /**
+     * @param Account $account
+     * @return array|null
+     */
+    public function getAccountMaster($account)
+    {
+        if (is_null($account)) {
+            return null;
+        }
+
+        return array(
+            "id" => $account->id,
+            "name" => $account->name,
+            "email" => $account->email,
+            "telefono" => $account->telefono,
+            "token" => $account->token,
+            "status" => $account->status
         );
     }
 

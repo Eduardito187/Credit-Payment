@@ -15,7 +15,7 @@ class Partner extends Model
 
     protected $fillable = ['alias', 'code', 'name', 'email', 'telefono', 'token', 'status', 'id_account', 'created_at', 'updated_at'];
 
-    protected $hidden = ['id', 'id_account', 'created_at', 'updated_at'];
+    protected $hidden = ['id_account', 'created_at', 'updated_at'];
 
     protected $primaryKey = 'id';
     public $incrementing = true;

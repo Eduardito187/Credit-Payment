@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Address;
 use App\Models\CustomerNegocio;
+use App\Models\CustomerPartner;
 
 class Customer extends Model
 {
@@ -27,5 +28,10 @@ class Customer extends Model
     public function getCustomerNegocio()
     {
         return $this->hasMany(CustomerNegocio::class, 'id_customer', 'id');
+    }
+    
+    public function getCustomerPartner()
+    {
+        return $this->hasMany(CustomerPartner::class, 'id_customer', 'id');
     }
 }
