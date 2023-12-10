@@ -47,7 +47,7 @@ class Login extends Controller
     public function getCurrentAccount(Request $request)
     {
         $response = null;
-        
+
         try {
             $response = $this->translate->getResponseApi(
                 $this->accountInterface->currentAccountArray($request->header($this->translate->getAuthorization())),

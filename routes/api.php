@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\Account\Login as ControllerLogin;
 use App\Http\Controllers\Api\Account\Customer as ControllerCustomer;
 use App\Http\Controllers\Api\Account\Negocio as ControllerNegocio;
 use App\Http\Controllers\Api\Account\Restore as ControllerRestore;
+use App\Http\Controllers\Api\Account\Prestamos as ControllerPrestamos;
+use App\Http\Controllers\Api\System\Tools as ControllerTools;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +64,21 @@ Route::middleware([CustomValidateToken::class])->group(function () {
 
     Route::controller(ControllerRestore::class)->group(function(){
         Route::post('account/restorePassword', 'restorePassword');
+    });
+
+    Route::controller(ControllerPrestamos::class)->group(function(){
+        Route::get('prestamos/getPlazos', 'getPlazos');
+        Route::get('prestamos/getFinanciamientos', 'getFinanciamientos');
+        Route::get('prestamos/getIntereses', 'getIntereses');
+    });
+
+    Route::controller(ControllerTools::class)->group(function(){
+        Route::get('system/getRestrictIp', 'getRestrictIp');
+        Route::get('system/getMigrations', 'getMigrations');
+        Route::get('system/getLocalization', 'getLocalization');
+        Route::get('system/getIp', 'getIp');
+        Route::get('system/getIntegrationApi', 'getIntegrationApi');
+        Route::get('system/getConfig', 'getConfig');
     });
     /*
     Route::controller(Register::class)->group(function(){

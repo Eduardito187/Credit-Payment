@@ -133,7 +133,7 @@ class AccountInterface
      */
     public function getMunicipalityArray($municipality)
     {
-        if(is_null($municipality)) {
+        if (is_null($municipality)) {
             return null;
         }
 
@@ -220,7 +220,7 @@ class AccountInterface
     {
         $customer = Customer::find($bodyData["id_customer"]);
 
-        if(is_null($customer)) {
+        if (is_null($customer)) {
             return null;
         }
 
@@ -235,7 +235,7 @@ class AccountInterface
     {
         $negocio = Negocio::find($bodyData["id_negocio"]);
 
-        if(is_null($negocio)) {
+        if (is_null($negocio)) {
             return null;
         }
 
@@ -295,7 +295,8 @@ class AccountInterface
      * @param string $name
      * @return bool
      */
-    public function updateNameNegocio($negocio, $name){
+    public function updateNameNegocio($negocio, $name)
+    {
         $negocio->name = $name;
         return $negocio->save();
     }
@@ -329,7 +330,7 @@ class AccountInterface
     {
         $customer = Customer::find($bodyData["id_customer"]);
 
-        if(is_null($customer)) {
+        if (is_null($customer)) {
             return null;
         }
 
@@ -343,7 +344,8 @@ class AccountInterface
      * @param bool $status
      * @return bool
      */
-    public function updateStatusCustomer($customer, $status){
+    public function updateStatusCustomer($customer, $status)
+    {
         $customer->status = $status;
         return $customer->save();
     }
@@ -367,7 +369,7 @@ class AccountInterface
      */
     public function getCountryArray($country)
     {
-        if(is_null($country)) {
+        if (is_null($country)) {
             return null;
         }
 
@@ -379,7 +381,7 @@ class AccountInterface
      */
     public function getCityArray($city)
     {
-        if(is_null($city)) {
+        if (is_null($city)) {
             return null;
         }
 
@@ -438,7 +440,8 @@ class AccountInterface
      * @param string $token
      * @return array
      */
-    public function currentAccountArray(string $token){
+    public function currentAccountArray(string $token)
+    {
         $this->tokenAccess = new TokenAccess($token);
         $this->setAccountJobByToken($this->tokenAccess->getToken());
 
@@ -452,7 +455,8 @@ class AccountInterface
     /**
      * @return array
      */
-    public function requestAccount(){
+    public function requestAccount()
+    {
         $Partner = $this->accountJob->accountPartner->Partner;
         return array(
             $this->translate->getId() => $this->accountJob->id,
@@ -769,10 +773,10 @@ class AccountInterface
                             );
 
                             if ($Account != null) {
-                                
+
                                 if ($Account->accountPartner->Partner->status == $this->status->getEnable()) {
                                     $api_ip = new Ip($ip);
-    
+
                                     $this->setPartnerSession(
                                         $Account->accountPartner->id_partner,
                                         $this->setSession(
@@ -784,7 +788,7 @@ class AccountInterface
                                     );
 
                                     return $this->translate->messageLogin(true, 0, $Account->token);
-                                }else{
+                                } else {
                                     return $this->translate->messageLogin(false, 7);
                                 }
                             } else {
