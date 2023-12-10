@@ -11,6 +11,7 @@ use App\Helpers\Address\AddressInterface;
 use App\Helpers\Base\Tools;
 use App\Models\Financiamientos;
 use App\Models\Intereses;
+use App\Models\PlanCuotas;
 use App\Models\Plazos;
 
 class PrestamosInterface
@@ -67,6 +68,42 @@ class PrestamosInterface
         $allPlazos = Plazos::all();
 
         return $allPlazos->toArray();
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllPlanesCuotas()
+    {
+        $data = [];
+        $allPlanesCuotas = PlanCuotas::all();
+
+        foreach ($allPlanesCuotas as $key => $planCuota) {
+            $data[] = $this->getPlanCuotaArray($planCuota);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param PlanCuotas $planCuotas
+     * @return array|null
+     */
+    public function getPlanCuotaArray($planCuotas)
+    {
+        if (is_array($planCuotas)) {
+            return null;
+        }
+
+        return array(
+            "id" => $planCuotas->id,
+            "monto_base" => $planCuotas->monto_base,
+            "monto_interes" => $planCuotas->monto_interes,
+            "monto_total" => $planCuotas->monto_total,
+            "financiamiento" => $planCuotas->getFinanciamiento->toArray(),
+            "interes" => $planCuotas->getInteres->toArray(),
+            "plazos" => $planCuotas->getPlazo->toArray()
+        );
     }
 
     /**

@@ -47,6 +47,19 @@ class Prestamos extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function getPlanesCuotas(Request $request)
+    {
+        return response()->json(
+            $this->prestamosInterface->getAllPlanesCuotas()
+        );
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function getPlazos(Request $request)
     {
         return response()->json(

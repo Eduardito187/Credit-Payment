@@ -70,6 +70,7 @@ Route::middleware([CustomValidateToken::class])->group(function () {
         Route::get('prestamos/getPlazos', 'getPlazos');
         Route::get('prestamos/getFinanciamientos', 'getFinanciamientos');
         Route::get('prestamos/getIntereses', 'getIntereses');
+        Route::get('prestamos/getPlanesCuotas', 'getPlanesCuotas');
     });
 
     Route::controller(ControllerTools::class)->group(function(){
