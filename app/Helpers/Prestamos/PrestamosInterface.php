@@ -13,6 +13,8 @@ use App\Models\Financiamientos;
 use App\Models\Intereses;
 use App\Models\PlanCuotas;
 use App\Models\Plazos;
+use App\Models\Prestamos;
+use App\Helpers\Account\AccountInterface;
 
 class PrestamosInterface
 {
@@ -41,6 +43,11 @@ class PrestamosInterface
      */
     protected $tools;
 
+    /**
+     * @var AccountInterface
+     */
+    protected $accountInterface;
+
     public function __construct()
     {
         $this->translate = new Translate();
@@ -48,6 +55,47 @@ class PrestamosInterface
         $this->date = new Date();
         $this->addressInterface = new AddressInterface();
         $this->tools = new Tools();
+        $this->accountInterface = new AccountInterface();
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllPrestamos()
+    {
+        $data = [];
+        $allPrestamos = Prestamos::all();
+
+        foreach ($allPrestamos as $key => $prestamo) {
+            $data[] = $this->getPrestamoArray($prestamo);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param Prestamos $prestamo
+     * @return array|null
+     */
+    public function getPrestamoArray($prestamo)
+    {
+        if (is_null($prestamo)) {
+            return null;
+        }
+
+        return array(
+            "id" => $prestamo->id,
+            "monto_base" => $prestamo->monto_base,
+            "monto_interes" => $prestamo->monto_interes,
+            "monto_total" => $prestamo->monto_total,
+            "monto_pago" => $prestamo->monto_pago,
+            "mora" => $prestamo->mora,
+            "fecha_prestamo" => $prestamo->fecha_prestamo,
+            "fecha_finalizacion" => $prestamo->fecha_finalizacion,
+            "estado" => $prestamo->getEstado->toArray(),
+            "customer" => $this->accountInterface->getCustomerArray($prestamo->getCustomer),
+            "plan_cuota" => $this->getPlanCuotaArray($prestamo->getPlanCuota)
+        );
     }
 
     /**

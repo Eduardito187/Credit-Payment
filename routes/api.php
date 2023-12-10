@@ -67,6 +67,7 @@ Route::middleware([CustomValidateToken::class])->group(function () {
     });
 
     Route::controller(ControllerPrestamos::class)->group(function(){
+        Route::get('prestamos/getPrestamos', 'getPrestamos');
         Route::get('prestamos/getPlazos', 'getPlazos');
         Route::get('prestamos/getFinanciamientos', 'getFinanciamientos');
         Route::get('prestamos/getIntereses', 'getIntereses');
