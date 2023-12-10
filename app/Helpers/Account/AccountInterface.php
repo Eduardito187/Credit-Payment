@@ -80,7 +80,112 @@ class AccountInterface
      */
     public function getNegocios()
     {
-        return Negocio::all()->toArray();
+        $allNegocios = Negocio::all();
+
+        $data = [];
+        foreach ($allNegocios as $key => $negocio) {
+            $data[] = $this->getNegocioArray($negocio);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getNegocioArray($negocio)
+    {
+        if (is_null($negocio)) {
+            return null;
+        }
+
+        return array(
+            "id" => $negocio->id,
+            "name" => $negocio->name,
+            "cargo" => $negocio->getCargoNegocio()->toArray(),
+            "rubro" => $negocio->getRubroNegocio()->toArray(),
+            "tipo" => $negocio->getTipoNegocio()->toArray(),
+            "address" => $this->getAddressArray($negocio->getAddress)
+        );
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getAddressArray($address)
+    {
+        if (is_null($address)) {
+            return null;
+        }
+
+        return array(
+            "id" + $address->id,
+            "municipality" => $this->getMunicipalityArray($address->getMunicipality),
+            "country" => $this->getCountryArray($address->getCountry),
+            "city" => $this->getCityArray($address->getCity),
+            "address_extra" => $this->getAddressExtraArray($address->getAddressExtra),
+            "localization" => $this->getLocalizationArray($address->getLocalization)
+        );
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getMunicipalityArray($municipality)
+    {
+        if(is_null($municipality)) {
+            return null;
+        }
+
+        return $municipality->toArray();
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getCountryArray($country)
+    {
+        if(is_null($country)) {
+            return null;
+        }
+
+        return $country->toArray();
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getCityArray($city)
+    {
+        if(is_null($city)) {
+            return null;
+        }
+
+        return $city->toArray();
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getAddressExtraArray($addressExtra)
+    {
+        if (is_null($addressExtra)) {
+            return null;
+        }
+
+        return $addressExtra->toArray();
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getLocalizationArray($localization)
+    {
+        if (is_null($localization)) {
+            return null;
+        }
+
+        return $localization->toArray();
     }
 
     /**
