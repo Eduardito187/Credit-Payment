@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CustomValidateToken;
 use App\Http\Controllers\Api\Account\Create as ControllerCreateAccount;
 use App\Http\Controllers\Api\Account\Login as ControllerLogin;
+use App\Http\Controllers\Api\Account\Customer as ControllerCustomer;
+use App\Http\Controllers\Api\Account\Negocio as ControllerNegocio;
+use App\Http\Controllers\Api\Account\Restore as ControllerRestore;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +43,26 @@ Route::middleware([CustomValidateToken::class])->group(function () {
         Route::post('account/getCurrentAccount', 'getCurrentAccount');
     });
 
+    Route::controller(ControllerCustomer::class)->group(function(){
+        Route::post('customer/createCustomer', 'createCustomer');
+        Route::post('customer/getCustomersList', 'getCustomersList');
+        Route::post('customer/getCustomer', 'getCustomer');
+        Route::post('customer/changeStatusCustomer', 'changeStatusCustomer');
+    });
+
+    Route::controller(ControllerNegocio::class)->group(function(){
+        Route::post('negocio/createNegocio', 'createNegocio');
+        Route::post('negocio/getNegociosCustomer', 'getNegociosCustomer');
+        Route::post('negocio/updateNegocio', 'updateNegocio');
+        Route::post('negocio/getCargosNegocio', 'getCargosNegocio');
+        Route::post('negocio/getRubroNegocio', 'getRubroNegocio');
+        Route::post('negocio/getTipoNegocio', 'getTipoNegocio');
+        Route::post('negocio/getNegociosList', 'getNegociosList');
+    });
+
+    Route::controller(ControllerRestore::class)->group(function(){
+        Route::post('account/restorePassword', 'restorePassword');
+    });
     /*
     Route::controller(Register::class)->group(function(){
         Route::post('register/account', 'store');

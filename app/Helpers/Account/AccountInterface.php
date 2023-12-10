@@ -17,6 +17,12 @@ use App\Models\Session;
 use App\Helpers\Base\Tools;
 use App\Models\AccountPartner;
 use App\Helpers\TokenAccess;
+use App\Models\Negocio;
+use App\Models\TipoNegocio;
+use App\Models\CargoNegocio;
+use App\Models\RubroNegocio;
+use App\Models\CustomerNegocio;
+use App\Models\Customer;
 
 class AccountInterface
 {
@@ -67,6 +73,30 @@ class AccountInterface
         $this->date = new Date();
         $this->addressInterface = new AddressInterface();
         $this->tools = new Tools();
+    }
+
+    /**
+     * @return array
+     */
+    public function getTipoNegocio()
+    {
+        return TipoNegocio::all()->toArray();
+    }
+
+    /**
+     * @return array
+     */
+    public function getCargoNegocio()
+    {
+        return CargoNegocio::all()->toArray();
+    }
+
+    /**
+     * @return array
+     */
+    public function getRubroNegocio()
+    {
+        return RubroNegocio::all()->toArray();
     }
 
     /**

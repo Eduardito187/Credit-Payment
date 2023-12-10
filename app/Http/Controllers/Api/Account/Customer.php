@@ -10,7 +10,7 @@ use App\Helpers\Account\AccountInterface;
 use App\Helpers\Text\Translate;
 use App\Helpers\Base\Status;
 
-class Restore extends Controller
+class Customer extends Controller
 {
     /**
      * @var AccountInterface
@@ -40,7 +40,40 @@ class Restore extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function restorePassword(Request $request)
+    public function createCustomer(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getCustomersList(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getCustomer(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function changeStatusCustomer(Request $request)
     {
         //
     }
