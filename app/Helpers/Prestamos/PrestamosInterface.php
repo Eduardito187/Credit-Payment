@@ -15,6 +15,9 @@ use App\Models\PlanCuotas;
 use App\Models\Plazos;
 use App\Models\Prestamos;
 use App\Helpers\Account\AccountInterface;
+use App\Models\DiasPagos;
+use App\Models\Pagos;
+use App\Models\PlanesPagos;
 
 class PrestamosInterface
 {
@@ -94,7 +97,106 @@ class PrestamosInterface
             "fecha_finalizacion" => $prestamo->fecha_finalizacion,
             "estado" => $prestamo->getEstado->toArray(),
             "customer" => $this->accountInterface->getCustomerArray($prestamo->getCustomer),
-            "plan_cuota" => $this->getPlanCuotaArray($prestamo->getPlanCuota)
+            "plan_cuota" => $this->getPlanCuotaArray($prestamo->getPlanCuota),
+            "plan_pago" => $this->getPlanPagoPrestamoArray($prestamo->getPlanesPagos),
+            "historial_pago" => $this->getHistorialPago($prestamo->getHistorialPagos)
+        );
+    }
+
+    /**
+     * @param DiasPagos[] $historialPago
+     * @return array|null
+     */
+    public function getHistorialPago($historialPago)
+    {
+        if (is_null($historialPago)) {
+            return null;
+        }
+
+        $data = [];
+        foreach ($historialPago as $key => $item) {
+            $data[] = $this->getDiaPagoArray($item);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param DiasPagos $diaPago
+     * @return array|null
+     */
+    public function getDiaPagoArray($diaPago)
+    {
+        if (is_null($diaPago)) {
+            return null;
+        }
+
+        return array(
+            "id" => $diaPago->id,
+            "pagado" => $diaPago->pagado,
+            "mora" => $diaPago->mora,
+            "pago" => $this->getPagoArray($diaPago->getPago),
+            "cobrador" => $this->getCobradorArray($diaPago->getCobrador)
+        );
+    }
+
+    /**
+     * @param Pagos $cobrador
+     * @return array|null
+     */
+    public function getCobradorArray($cobrador)
+    {
+        if (is_null($cobrador)) {
+            return null;
+        }
+
+        return array(
+            "id" => $cobrador->id,
+            "name" => $cobrador->name,
+            "email" => $cobrador->email,
+            "telefono" => $cobrador->telefono,
+            "token" => $cobrador->token,
+            "status" => $cobrador->status,
+            "partner" => $this->accountInterface->getAccountPartnerArray($cobrador->accountPartner)
+        );
+    }
+
+    /**
+     * @param PlanesPagos[] $planesPagos
+     * @return array|null
+     */
+    public function getPlanPagoPrestamoArray($planesPagos)
+    {
+        if (is_null($planesPagos)) {
+            return null;
+        }
+
+        $data = [];
+        foreach ($planesPagos as $key => $item) {
+            $data[] = $this->getPagoArray($item->getPago);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param Pagos $pago
+     * @return array|null
+     */
+    public function getPagoArray($pago)
+    {
+        if (is_null($pago)) {
+            return null;
+        }
+
+        return array(
+            "id" => $pago->id,
+            "num_pago" => $pago->num_pago,
+            "monto" => $pago->monto,
+            "mora" => $pago->mora,
+            "fecha_pago" => $pago->fecha_pago,
+            "fecha_pagado" => $pago->fecha_pagado,
+            "estado" => $pago->getEstado->toArray(),
         );
     }
 

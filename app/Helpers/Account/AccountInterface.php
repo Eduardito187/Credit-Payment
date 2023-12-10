@@ -183,6 +183,21 @@ class AccountInterface
     }
 
     /**
+     * @param AccountPartner $accountPartner
+     * @return array
+     */
+    public function getAccountPartnerArray($accountPartner)
+    {
+        $data = [];
+
+        foreach ($accountPartner as $key => $item) {
+            $data[] = $this->getPartnerArray($item->getPartner);
+        }
+
+        return $data;
+    }
+
+    /**
      * @param CustomerPartner $customerPartner
      * @return array
      */
