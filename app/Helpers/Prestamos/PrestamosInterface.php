@@ -132,7 +132,6 @@ class PrestamosInterface
         }
 
         return array(
-            "id" => $diaPago->id,
             "pagado" => $diaPago->pagado,
             "mora" => $diaPago->mora,
             "pago" => $this->getPagoArray($diaPago->getPago),

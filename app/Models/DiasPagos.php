@@ -16,9 +16,6 @@ class DiasPagos extends Model
     protected $table = 'dia_pago';
     protected $fillable = ['id_pago', 'id_cobrador', 'id_customer', 'id_prestamo', 'pagado', 'mora'];
     protected $hidden = ['created_at', 'updated_at'];
-    protected $primaryKey = 'id';
-    public $incrementing = true;
-    protected $keyType = 'integer';
     public $timestamps = false;
 
     public function getPago()
