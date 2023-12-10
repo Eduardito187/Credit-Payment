@@ -175,9 +175,28 @@ class AccountInterface
             "telefono" => $customer->telefono,
             "status" => $customer->status,
             "address" => $this->getAddressArray($customer->getAddress),
+            "negocio" => $this->getCustomersNegocios($customer->getCustomerNegocio)
         );
     }
 
+    /**
+     * @param CustomerNegocio $customerNegocio
+     * @return array
+     */
+    public function getCustomersNegocios($customerNegocio)
+    {
+        $data = [];
+
+        foreach ($customerNegocio as $key => $item) {
+            $data[] = $this->getNegocioArray($item->getNegocio);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @return array
+     */
     public function getAllCustomerNegociosArray()
     {
         $customerNegocios = CustomerNegocio::all();
