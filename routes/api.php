@@ -81,6 +81,9 @@ Route::middleware([CustomValidateToken::class])->group(function () {
         Route::get('system/getIp', 'getIp');
         Route::get('system/getIntegrationApi', 'getIntegrationApi');
         Route::get('system/getConfig', 'getConfig');
+        Route::get('system/getCountry', 'getCountry');
+        Route::get('system/getCity', 'getCity');
+        Route::get('system/getMunicipality', 'getMunicipality');
     });
     /*
     Route::controller(Register::class)->group(function(){

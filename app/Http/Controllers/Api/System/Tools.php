@@ -38,6 +38,45 @@ class Tools extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function getCountry(Request $request)
+    {
+        return response()->json(
+            $this->tools->getAllCountry()
+        );
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getCity(Request $request)
+    {
+        return response()->json(
+            $this->tools->getAllCity()
+        );
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getMunicipality(Request $request)
+    {
+        return response()->json(
+            $this->tools->getAllMunicipality()
+        );
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function getRestrictIp(Request $request)
     {
         return response()->json(
